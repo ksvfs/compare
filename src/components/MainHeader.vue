@@ -32,7 +32,7 @@ function compareAndView() {
       <div class="logo-text">Сравнение текстов</div>
     </div>
 
-    <div>
+    <div class="center-menu">
       <button
         class="compare-button"
         @click="compareAndView"
@@ -40,11 +40,11 @@ function compareAndView() {
       >
         Сравнить
       </button>
-    </div>
 
-    <div>
-      <label for="ignore-stop-words">Без стоп-слов</label>
-      <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
+      <div class="checkbox-option">
+        <label for="ignore-stop-words">Без стоп-слов</label>
+        <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
+      </div>
     </div>
 
     <button class="theme-switch">
@@ -57,9 +57,8 @@ function compareAndView() {
 header {
   height: var(--header-height);
   padding-inline: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
   background-color: #1a1a1a;
 }
 
@@ -78,6 +77,12 @@ header {
   }
 }
 
+.center-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .compare-button {
   border-radius: 0.5rem;
   padding: 0.4rem 0.7rem;
@@ -87,11 +92,30 @@ header {
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 50%;
+  }
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+
+  input {
+    height: 0.9rem;
+    width: 0.9rem;
+    margin-top: 0.1rem;
+    accent-color: #42b883;
+
+    &:not(:checked) {
+      opacity: 70%;
+    }
   }
 }
 
 .theme-switch {
+  margin-left: auto;
   background-color: transparent;
   color: #ffffff;
   cursor: pointer;
