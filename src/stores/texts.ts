@@ -1,6 +1,12 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+
+import { useSettingsStore } from './settings.ts'
+
 import { charactersToIgnore } from '../data/charactersToIgnore.ts'
+import { stopWordsRussian } from '../data/stopWordsRussian.ts'
+import { stopWordsEnglish } from '../data/stopWordsEnglish.ts'
+
 import type { Token } from '../types/types.ts'
 
 type Text = {
@@ -9,6 +15,8 @@ type Text = {
 }
 
 export const useTextsStore = defineStore('texts', () => {
+  const settings = useSettingsStore()
+
   const text1 = ref<Text>({
     plain: '',
     tokenized: [],
@@ -53,6 +61,11 @@ export const useTextsStore = defineStore('texts', () => {
     const tokens = tokenizedParagraphs.flat()
 
     for (const token of tokens) {
+      if (settings.ignoreStopWords) {
+        const isStopWord = stopWordsRussian.has(token.core) || stopWordsEnglish.has(token.core)
+        if (isStopWord) continue
+      }
+
       if (token.core.trim() && set.has(token.core)) {
         token.highlight = true
       }

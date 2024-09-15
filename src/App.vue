@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref, nextTick, useTemplateRef } from 'vue'
+import { nextTick, useTemplateRef } from 'vue'
 import { storeToRefs } from 'pinia'
+
 import { useTextsStore } from './stores/texts.ts'
+import { useSettingsStore } from './stores/settings.ts'
+
 import ViewText from './components/ViewText.vue'
 
 const texts = useTextsStore()
 const { text1, text2 } = storeToRefs(texts)
 const { compareTexts } = texts
 
-const currentMode = ref<'edit' | 'view'>('edit')
+const settings = useSettingsStore()
+const { currentMode, ignoreStopWords } = storeToRefs(settings)
 
 const text1Edit = useTemplateRef('text-1-edit')
 const text2Edit = useTemplateRef('text-2-edit')
@@ -67,6 +71,11 @@ async function goToEditMode(event: MouseEvent): Promise<void> {
     >
       Сравнить тексты
     </button>
+
+    <div>
+      <label for="ignore-stop-words">Без стоп-слов</label>
+      <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
+    </div>
   </header>
 
   <div v-show="currentMode === 'edit'" class="edit-container">
