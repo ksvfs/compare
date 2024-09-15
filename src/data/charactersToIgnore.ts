@@ -1,1 +1,1 @@
-export default new Set([".", ",", ":", ";", "(", ")", "'", '"']);
+export default new Set(['.', ',', ':', ';', '(', ')', "'", '"'])

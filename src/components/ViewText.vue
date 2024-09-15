@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Token } from "../types/types.ts";
+import type { Token } from '../types/types.ts'
 
 defineProps<{
-  tokens: Token[];
-  goToEditMode: (event: MouseEvent) => void;
-  changeBrightness: (core: string, event: MouseEvent) => void;
-}>();
+  tokens: Token[]
+  goToEditMode: (event: MouseEvent) => void
+  changeBrightness: (core: string, event: MouseEvent) => void
+}>()
 </script>
 
 <template>
@@ -24,9 +24,7 @@ defineProps<{
 
 <style scoped lang="scss">
 .view {
-  height: calc(
-    100dvh - var(--header-height) - calc(var(--text-container-spacing) * 2)
-  );
+  height: calc(100dvh - var(--header-height) - calc(var(--text-container-spacing) * 2));
   overflow-y: auto;
   border: 1px solid #000000;
   padding: var(--text-container-spacing);
