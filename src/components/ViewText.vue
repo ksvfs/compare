@@ -29,6 +29,7 @@ defineProps<{
   border: 1px solid #000000;
   padding: var(--text-container-spacing);
   word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .highlight {
