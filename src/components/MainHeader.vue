@@ -4,7 +4,9 @@ import { storeToRefs } from 'pinia'
 import { useTextsStore } from '../stores/texts.ts'
 import { useSettingsStore } from '../stores/settings.ts'
 
-import LogoIcon from './LogoIcon.vue'
+import LogoIcon from '../icons/LogoIcon.vue'
+import SunIcon from '../icons/SunIcon.vue'
+import MoonIcon from '../icons/MoonIcon.vue'
 
 const { goToViewMode } = defineProps<{
   goToViewMode: () => void
@@ -44,6 +46,10 @@ function compareAndView() {
       <label for="ignore-stop-words">Без стоп-слов</label>
       <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
     </div>
+
+    <button class="theme-switch">
+      <MoonIcon />
+    </button>
   </header>
 </template>
 
@@ -83,5 +89,11 @@ header {
   &:disabled {
     opacity: 0.5;
   }
+}
+
+.theme-switch {
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
 }
 </style>
