@@ -4,6 +4,8 @@ import { storeToRefs } from 'pinia'
 import { useTextsStore } from '../stores/texts.ts'
 import { useSettingsStore } from '../stores/settings.ts'
 
+import LogoIcon from './LogoIcon.vue'
+
 const { goToViewMode } = defineProps<{
   goToViewMode: () => void
 }>()
@@ -23,13 +25,20 @@ function compareAndView() {
 
 <template>
   <header>
-    <button
-      class="compare-button"
-      @click="compareAndView"
-      :disabled="!text1.plain.trim() || !text2.plain.trim() || currentMode === 'view'"
-    >
-      Сравнить тексты
-    </button>
+    <div class="logo">
+      <LogoIcon class="logo-icon" />
+      <div class="logo-text">Сравнение текстов</div>
+    </div>
+
+    <div>
+      <button
+        class="compare-button"
+        @click="compareAndView"
+        :disabled="!text1.plain.trim() || !text2.plain.trim() || currentMode === 'view'"
+      >
+        Сравнить
+      </button>
+    </div>
 
     <div>
       <label for="ignore-stop-words">Без стоп-слов</label>
@@ -41,11 +50,26 @@ function compareAndView() {
 <style scoped lang="scss">
 header {
   height: var(--header-height);
+  padding-inline: 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   background-color: #1a1a1a;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &-icon {
+    color: #42b883;
+  }
+
+  &-text {
+    font-weight: 700;
+    color: #ffffff;
+  }
 }
 
 .compare-button {
