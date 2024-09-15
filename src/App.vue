@@ -114,6 +114,10 @@ textarea {
   line-height: 1.6;
   white-space: pre-line;
 
+  @media (width < 570px) {
+    font-size: 0.85rem;
+  }
+
   &::placeholder {
     color: var(--text-placeholder-color);
   }

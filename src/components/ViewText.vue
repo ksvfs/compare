@@ -35,6 +35,10 @@ const { changeTokenBrightness } = useTextsStore()
   line-height: 1.6;
   word-break: break-word;
   white-space: pre-wrap;
+
+  @media (width < 570px) {
+    font-size: 0.9rem;
+  }
 }
 
 .highlight {

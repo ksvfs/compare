@@ -1,4 +1,8 @@
 :root {
-  --header-height: 4rem;
   --text-container-spacing: 0.7rem;
+  --header-height: 4rem;
+
+  @media (width < 570px) {
+    --header-height: 7.5rem;
+  }
 }

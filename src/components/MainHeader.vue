@@ -62,12 +62,20 @@ header {
   display: grid;
   grid-template-columns: 1fr max-content 1fr;
   background-color: var(--header-background-color);
+
+  @media (width < 570px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  @media (width < 570px) {
+    display: none;
+  }
 
   &-icon {
     color: var(--accent-color);
@@ -76,6 +84,10 @@ header {
   &-text {
     font-weight: 700;
     color: var(--header-text-color);
+
+    @media (width < 1200px) {
+      display: none;
+    }
   }
 }
 
@@ -83,6 +95,12 @@ header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
+  @media (width < 570px) {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 .compare-button {
@@ -118,5 +136,9 @@ header {
   background-color: transparent;
   color: var(--header-text-color);
   cursor: pointer;
+
+  @media (width < 570px) {
+    display: none;
+  }
 }
 </style>
