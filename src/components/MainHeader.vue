@@ -17,7 +17,8 @@ const { text1, text2 } = storeToRefs(texts)
 const { compareTexts } = texts
 
 const settings = useSettingsStore()
-const { currentMode, ignoreStopWords } = storeToRefs(settings)
+const { currentMode, currentTheme, ignoreStopWords } = storeToRefs(settings)
+const { toggleTheme } = settings
 
 function compareAndView() {
   compareTexts()
@@ -47,8 +48,9 @@ function compareAndView() {
       </div>
     </div>
 
-    <button class="theme-switch">
-      <MoonIcon />
+    <button class="theme-toggle" @click="toggleTheme">
+      <MoonIcon v-show="currentTheme === 'light'" />
+      <SunIcon v-show="currentTheme === 'dark'" />
     </button>
   </header>
 </template>
@@ -59,7 +61,7 @@ header {
   padding-inline: 2rem;
   display: grid;
   grid-template-columns: 1fr max-content 1fr;
-  background-color: #1a1a1a;
+  background-color: var(--header-background-color);
 }
 
 .logo {
@@ -68,12 +70,12 @@ header {
   gap: 0.5rem;
 
   &-icon {
-    color: #42b883;
+    color: var(--accent-color);
   }
 
   &-text {
     font-weight: 700;
-    color: #ffffff;
+    color: var(--header-text-color);
   }
 }
 
@@ -86,13 +88,14 @@ header {
 .compare-button {
   border-radius: 0.5rem;
   padding: 0.4rem 0.7rem;
-  background-color: #42b883;
-  color: #213547;
+  background-color: var(--accent-color);
+  color: var(--header-background-color);
   font-weight: 700;
   cursor: pointer;
 
   &:disabled {
-    opacity: 50%;
+    opacity: 60%;
+    cursor: default;
   }
 }
 
@@ -100,24 +103,20 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #ffffff;
+  color: var(--header-text-color);
 
-  input {
+  input[type='checkbox'] {
     height: 0.9rem;
     width: 0.9rem;
     margin-top: 0.1rem;
-    accent-color: #42b883;
-
-    &:not(:checked) {
-      opacity: 70%;
-    }
+    accent-color: var(--accent-color);
   }
 }
 
-.theme-switch {
+.theme-toggle {
   margin-left: auto;
   background-color: transparent;
-  color: #ffffff;
+  color: var(--header-text-color);
   cursor: pointer;
 }
 </style>

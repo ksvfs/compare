@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, useTemplateRef } from 'vue'
+import { useTemplateRef, nextTick, onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useTextsStore } from './stores/texts.ts'
@@ -13,6 +13,7 @@ const { text1, text2 } = storeToRefs(texts)
 
 const settings = useSettingsStore()
 const { currentMode } = storeToRefs(settings)
+const { setInitialTheme } = settings
 
 const text1Edit = useTemplateRef('text-1-edit')
 const text2Edit = useTemplateRef('text-2-edit')
@@ -56,6 +57,8 @@ async function goToEditMode(event: MouseEvent): Promise<void> {
   text1Edit.value.scrollTop = text1ScrollTop
   text2Edit.value.scrollTop = text2ScrollTop
 }
+
+onBeforeMount(setInitialTheme)
 </script>
 
 <template>
@@ -103,9 +106,16 @@ async function goToEditMode(event: MouseEvent): Promise<void> {
 
 textarea {
   height: calc(100dvh - var(--header-height) - calc(var(--text-container-spacing) * 2));
-  border: 1px solid #000000;
+  border: 1px solid var(--text-border-color);
   padding: var(--text-container-spacing);
+  background-color: var(--text-background-color);
+  color: var(--text-color);
   resize: none;
+  line-height: 1.6;
   white-space: pre-line;
+
+  &::placeholder {
+    color: var(--text-placeholder-color);
+  }
 }
 </style>

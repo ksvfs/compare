@@ -28,17 +28,21 @@ const { changeTokenBrightness } = useTextsStore()
 .view {
   height: calc(100dvh - var(--header-height) - calc(var(--text-container-spacing) * 2));
   overflow-y: auto;
-  border: 1px solid #000000;
+  border: 1px solid var(--text-border-color);
   padding: var(--text-container-spacing);
+  background-color: var(--text-background-color);
+  color: var(--text-color);
+  line-height: 1.6;
   word-break: break-word;
   white-space: pre-wrap;
 }
 
 .highlight {
-  background-color: #b9f8db;
+  background-color: var(--highlight-color-pale);
 }
 
 .bright {
-  background-color: #42b883;
+  background-color: var(--highlight-color-bright);
+  color: var(--text-color-hover);
 }
 </style>
