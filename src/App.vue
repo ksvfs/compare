@@ -5,14 +5,14 @@ import { storeToRefs } from 'pinia'
 import { useTextsStore } from './stores/texts.ts'
 import { useSettingsStore } from './stores/settings.ts'
 
+import MainHeader from './components/MainHeader.vue'
 import ViewText from './components/ViewText.vue'
 
 const texts = useTextsStore()
 const { text1, text2 } = storeToRefs(texts)
-const { compareTexts } = texts
 
 const settings = useSettingsStore()
-const { currentMode, ignoreStopWords } = storeToRefs(settings)
+const { currentMode } = storeToRefs(settings)
 
 const text1Edit = useTemplateRef('text-1-edit')
 const text2Edit = useTemplateRef('text-2-edit')
@@ -59,24 +59,7 @@ async function goToEditMode(event: MouseEvent): Promise<void> {
 </script>
 
 <template>
-  <header>
-    <button
-      @click="
-        () => {
-          compareTexts()
-          goToViewMode()
-        }
-      "
-      :disabled="!text1.plain.trim() || !text2.plain.trim() || currentMode === 'view'"
-    >
-      Сравнить тексты
-    </button>
-
-    <div>
-      <label for="ignore-stop-words">Без стоп-слов</label>
-      <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
-    </div>
-  </header>
+  <MainHeader :go-to-view-mode />
 
   <div v-show="currentMode === 'edit'" class="edit-container">
     <textarea
@@ -97,41 +80,19 @@ async function goToEditMode(event: MouseEvent): Promise<void> {
       v-show="currentMode === 'view'"
       ref="text-1-view"
       :tokens="text1.tokenized"
-      :go-to-edit-mode="goToEditMode"
+      :go-to-edit-mode
     />
 
     <ViewText
       v-show="currentMode === 'view'"
       ref="text-2-view"
       :tokens="text2.tokenized"
-      :go-to-edit-mode="goToEditMode"
+      :go-to-edit-mode
     />
   </div>
 </template>
 
 <style scoped lang="scss">
-header {
-  height: var(--header-height);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  background-color: #1a1a1a;
-
-  button {
-    border-radius: 0.5rem;
-    padding: 0.4rem 0.7rem;
-    background-color: #42b883;
-    color: #213547;
-    font-weight: 700;
-    cursor: pointer;
-
-    &:disabled {
-      opacity: 0.5;
-    }
-  }
-}
-
 .edit-container,
 .view-container {
   padding: var(--text-container-spacing);
