@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { useTextsStore } from '../stores/texts.ts'
 import type { Token } from '../types/types.ts'
 
 defineProps<{
   tokens: Token[]
   goToEditMode: (event: MouseEvent) => void
-  changeBrightness: (core: string, event: MouseEvent) => void
 }>()
+
+const { changeTokenBrightness } = useTextsStore()
 </script>
 
 <template>
@@ -13,8 +15,8 @@ defineProps<{
     <span v-for="token in tokens">
       <span
         :class="{ highlight: token.highlight, bright: token.bright }"
-        @mouseenter="changeBrightness(token.core, $event)"
-        @mouseleave="changeBrightness(token.core, $event)"
+        @mouseenter="changeTokenBrightness(token.core, $event)"
+        @mouseleave="changeTokenBrightness(token.core, $event)"
         >{{ token.chunk }}</span
       >
       <br v-if="token.endOfLine" />

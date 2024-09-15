@@ -5,14 +5,3 @@ export type Token = {
   bright: boolean
   endOfLine: boolean
 }
-
-export type Data = {
-  text1: {
-    plain: string
-    tokenized: Token[]
-  }
-  text2: {
-    plain: string
-    tokenized: Token[]
-  }
-}

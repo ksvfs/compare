@@ -1,1 +1,1 @@
-export default new Set(['.', ',', ':', ';', '(', ')', "'", '"'])
+export const charactersToIgnore = new Set(['.', ',', ':', ';', '(', ')', "'", '"'])
