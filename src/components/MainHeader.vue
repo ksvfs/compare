@@ -17,11 +17,11 @@ const { text1, text2 } = storeToRefs(texts)
 const { compareTexts } = texts
 
 const settings = useSettingsStore()
-const { currentMode, currentTheme, ignoreStopWords } = storeToRefs(settings)
+const { currentMode, currentTheme, ignoreStopWords, lemmatize } = storeToRefs(settings)
 const { toggleTheme } = settings
 
-function compareAndView() {
-  compareTexts()
+async function compareAndView() {
+  await compareTexts()
   goToViewMode()
 }
 </script>
@@ -45,6 +45,11 @@ function compareAndView() {
       <div class="checkbox-option">
         <label for="ignore-stop-words">Без стоп-слов</label>
         <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
+      </div>
+
+      <div class="checkbox-option">
+        <label for="lemmatize">С лемматизацией</label>
+        <input type="checkbox" id="lemmatize" v-model="lemmatize" />
       </div>
     </div>
 

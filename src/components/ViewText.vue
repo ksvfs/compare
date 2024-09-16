@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTextsStore } from '../stores/texts.ts'
-import type { Token } from '../types/types.ts'
+
+import type { Token } from '../stores/texts.ts'
 
 defineProps<{
   tokens: Token[]

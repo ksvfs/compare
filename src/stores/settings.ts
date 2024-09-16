@@ -9,8 +9,9 @@ export const useSettingsStore = defineStore('settings', () => {
   const currentMode = ref<'edit' | 'view'>('edit')
   const currentTheme = ref<'light' | 'dark'>('light')
   const ignoreStopWords = ref(false)
+  const lemmatize = ref(false)
 
-  watch(ignoreStopWords, () => {
+  watch([ignoreStopWords, lemmatize], () => {
     if (currentMode.value === 'view') {
       texts.compareTexts()
     }
@@ -50,5 +51,5 @@ export const useSettingsStore = defineStore('settings', () => {
     localStorage.setItem('theme', newTheme)
   }
 
-  return { currentMode, currentTheme, ignoreStopWords, setInitialTheme, toggleTheme }
+  return { currentMode, currentTheme, ignoreStopWords, lemmatize, setInitialTheme, toggleTheme }
 })
