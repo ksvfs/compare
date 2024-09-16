@@ -13,7 +13,7 @@ const { goToViewMode } = defineProps<{
 }>()
 
 const texts = useTextsStore()
-const { text1, text2 } = storeToRefs(texts)
+const { text1, text2, isProcessing } = storeToRefs(texts)
 const { compareTexts } = texts
 
 const settings = useSettingsStore()
@@ -37,19 +37,26 @@ async function compareAndView() {
       <button
         class="compare-button"
         @click="compareAndView"
-        :disabled="!text1.plain.trim() || !text2.plain.trim() || currentMode === 'view'"
+        :disabled="
+          !text1.plain.trim() || !text2.plain.trim() || currentMode === 'view' || isProcessing
+        "
       >
         Сравнить
       </button>
 
       <div class="checkbox-option">
         <label for="ignore-stop-words">Без стоп-слов</label>
-        <input type="checkbox" id="ignore-stop-words" v-model="ignoreStopWords" />
+        <input
+          type="checkbox"
+          id="ignore-stop-words"
+          v-model="ignoreStopWords"
+          :disabled="isProcessing"
+        />
       </div>
 
       <div class="checkbox-option">
         <label for="lemmatize">С лемматизацией</label>
-        <input type="checkbox" id="lemmatize" v-model="lemmatize" />
+        <input type="checkbox" id="lemmatize" v-model="lemmatize" :disabled="isProcessing" />
       </div>
     </div>
 
@@ -133,6 +140,10 @@ header {
     width: 0.9rem;
     margin-top: 0.1rem;
     accent-color: var(--accent-color);
+
+    &:disabled {
+      opacity: 70%;
+    }
   }
 }
 

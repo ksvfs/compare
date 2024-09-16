@@ -9,7 +9,7 @@ import MainHeader from './components/MainHeader.vue'
 import ViewText from './components/ViewText.vue'
 
 const texts = useTextsStore()
-const { text1, text2 } = storeToRefs(texts)
+const { text1, text2, isProcessing } = storeToRefs(texts)
 
 const settings = useSettingsStore()
 const { currentMode } = storeToRefs(settings)
@@ -69,12 +69,14 @@ onBeforeMount(setInitialTheme)
       v-model="text1.plain"
       placeholder="Вставьте первый текст"
       ref="text-1-edit"
+      :disabled="isProcessing"
     ></textarea>
 
     <textarea
       v-model="text2.plain"
       placeholder="Вставьте второй текст"
       ref="text-2-edit"
+      :disabled="isProcessing"
     ></textarea>
   </div>
 
@@ -120,6 +122,10 @@ textarea {
 
   &::placeholder {
     color: var(--text-placeholder-color);
+  }
+
+  &:disabled {
+    opacity: 50%;
   }
 }
 </style>

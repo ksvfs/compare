@@ -33,6 +33,8 @@ export const useTextsStore = defineStore('texts', () => {
     tokenized: [],
   })
 
+  const isProcessing = ref(false)
+
   function getCoreFromChunk(chunk: string): string {
     return chunk
       .toLowerCase()
@@ -151,6 +153,8 @@ export const useTextsStore = defineStore('texts', () => {
   }
 
   async function compareTexts(): Promise<void> {
+    isProcessing.value = true
+
     const [text1Tokens, text1UniqueCores, text2Tokens, text2UniqueCores] = await tokenizeTexts(
       text1.value.plain,
       text2.value.plain,
@@ -161,7 +165,9 @@ export const useTextsStore = defineStore('texts', () => {
 
     text1.value.tokenized = text1HighlightedTokens
     text2.value.tokenized = text2HighlightedTokens
+
+    isProcessing.value = false
   }
 
-  return { text1, text2, compareTexts, changeTokenBrightness }
+  return { text1, text2, isProcessing, compareTexts, changeTokenBrightness }
 })

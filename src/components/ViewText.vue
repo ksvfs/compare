@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import { useTextsStore } from '../stores/texts.ts'
 
 import type { Token } from '../stores/texts.ts'
@@ -8,11 +10,13 @@ defineProps<{
   goToEditMode: (event: MouseEvent) => void
 }>()
 
-const { changeTokenBrightness } = useTextsStore()
+const texts = useTextsStore()
+const { isProcessing } = storeToRefs(texts)
+const { changeTokenBrightness } = texts
 </script>
 
 <template>
-  <div class="view" @click="goToEditMode">
+  <div class="view" :class="{ 'low-opacity': isProcessing }" @click="goToEditMode">
     <span v-for="token in tokens">
       <span
         :class="{ highlight: token.highlight, bright: token.bright }"
@@ -49,5 +53,9 @@ const { changeTokenBrightness } = useTextsStore()
 .bright {
   background-color: var(--highlight-color-bright);
   color: var(--text-color-hover);
+}
+
+.low-opacity {
+  opacity: 50%;
 }
 </style>
