@@ -115,6 +115,16 @@ textarea {
   resize: none;
   line-height: 1.6;
   white-space: pre-line;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+
+  &:disabled {
+    opacity: 50%;
+  }
+
+  &:focus {
+    outline: 1px solid var(--text-outline-color);
+  }
 
   @media (width < 570px) {
     font-size: 0.85rem;
@@ -122,10 +132,6 @@ textarea {
 
   &::placeholder {
     color: var(--text-placeholder-color);
-  }
-
-  &:disabled {
-    opacity: 50%;
   }
 }
 </style>

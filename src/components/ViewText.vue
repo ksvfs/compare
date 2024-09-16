@@ -40,6 +40,8 @@ const { changeTokenBrightness } = texts
   line-height: 1.6;
   word-break: break-word;
   white-space: pre-wrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
 
   @media (width < 570px) {
     font-size: 0.9rem;
