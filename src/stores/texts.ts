@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 import { useSettingsStore } from './settings.ts'
 
-import { charactersToIgnore } from '../data/charactersToIgnore.ts'
+import { validCharacters } from '../data/validCharacters.ts'
 import { stopWordsRussian } from '../data/stopWordsRussian.ts'
 import { stopWordsEnglish } from '../data/stopWordsEnglish.ts'
 
@@ -39,7 +39,7 @@ export const useTextsStore = defineStore('texts', () => {
     return chunk
       .toLowerCase()
       .split('')
-      .filter((char) => !charactersToIgnore.has(char))
+      .filter((char) => validCharacters.has(char))
       .join('')
   }
 
